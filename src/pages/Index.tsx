@@ -162,7 +162,7 @@ const Index = () => {
               <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
                 Сладкий рай для гурманов
               </h2>
-              <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl">
+              <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto text-center">
                 Откройте для себя мир изысканных конфет и леденцов ручной работы
               </p>
               <div className="flex gap-4 flex-wrap justify-center">
