@@ -2,9 +2,11 @@ import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import Cart, { CartItem } from '@/components/Cart';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   const products = [
     {
@@ -63,6 +65,38 @@ const Index = () => {
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const addToCart = (product: typeof products[0]) => {
+    setCartItems(prev => {
+      const existing = prev.find(item => item.id === product.id);
+      if (existing) {
+        return prev.map(item =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
+      return [...prev, { ...product, quantity: 1 }];
+    });
+  };
+
+  const updateCartQuantity = (id: number, quantity: number) => {
+    if (quantity === 0) {
+      setCartItems(prev => prev.filter(item => item.id !== id));
+    } else {
+      setCartItems(prev =>
+        prev.map(item => item.id === id ? { ...item, quantity } : item)
+      );
+    }
+  };
+
+  const removeFromCart = (id: number) => {
+    setCartItems(prev => prev.filter(item => item.id !== id));
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-accent/10">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -91,9 +125,17 @@ const Index = () => {
             ))}
           </nav>
 
-          <Button className="md:hidden" variant="ghost" size="icon">
-            <Icon name="Menu" size={24} />
-          </Button>
+          <div className="flex items-center gap-2">
+            <Cart
+              items={cartItems}
+              onUpdateQuantity={updateCartQuantity}
+              onRemove={removeFromCart}
+              onClear={clearCart}
+            />
+            <Button className="md:hidden" variant="ghost" size="icon">
+              <Icon name="Menu" size={24} />
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -221,7 +263,10 @@ const Index = () => {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-700">
+                  <Button 
+                    className="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-700"
+                    onClick={() => addToCart(product)}
+                  >
                     <Icon name="ShoppingCart" size={18} className="mr-2" />
                     В корзину
                   </Button>
