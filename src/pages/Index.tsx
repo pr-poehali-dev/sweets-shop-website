@@ -56,6 +56,22 @@ const Index = () => {
       price: 420,
       emoji: '🍬',
       color: 'bg-gradient-to-br from-red-400 to-rose-600'
+    },
+    {
+      id: 7,
+      name: 'Дубайский Шоколад',
+      description: 'Эксклюзивный шоколад с фисташковой начинкой',
+      price: 5000,
+      emoji: '🏜️',
+      color: 'bg-gradient-to-br from-amber-600 to-yellow-700'
+    },
+    {
+      id: 8,
+      name: 'Конфеты Шипучка',
+      description: 'Взрывные сладости с газировкой',
+      price: 390,
+      emoji: '✨',
+      color: 'bg-gradient-to-br from-cyan-400 to-blue-500'
     }
   ];
 
@@ -371,14 +387,16 @@ const Index = () => {
             <div>
               <h4 className="font-semibold mb-4">Социальные сети</h4>
               <div className="flex gap-4">
+                <Button variant="outline" size="icon" className="hover-scale" asChild>
+                  <a href="https://t.me/lunikonus" target="_blank" rel="noopener noreferrer">
+                    <Icon name="Send" size={20} />
+                  </a>
+                </Button>
                 <Button variant="outline" size="icon" className="hover-scale">
                   <Icon name="Instagram" size={20} />
                 </Button>
                 <Button variant="outline" size="icon" className="hover-scale">
                   <Icon name="Facebook" size={20} />
-                </Button>
-                <Button variant="outline" size="icon" className="hover-scale">
-                  <Icon name="Twitter" size={20} />
                 </Button>
               </div>
             </div>
